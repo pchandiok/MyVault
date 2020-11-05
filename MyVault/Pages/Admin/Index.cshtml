@@ -1,0 +1,59 @@
+﻿@page
+@model MyVault.Pages.Admin.IndexModel
+
+<div class="container border m-0 p-0">
+    <form method="Post">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-info text-center">Users List</h3>
+            </div>
+            <div class="col-6 text-right">
+                <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Register">Create New User</a>
+            </div>
+        </div>
+
+        <div class="col-12 border p-3 mt-3">
+            @if (Model.VaultUser.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="@Model.VaultUser.FirstOrDefault().Name"></label>
+                        </th>
+                        <th>
+                            <label asp-for="@Model.VaultUser.FirstOrDefault().City"></label>
+                        </th>
+                        <th>
+                            <label asp-for="@Model.VaultUser.FirstOrDefault().PhoneNumber"></label>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.VaultUser)
+                    {
+                        <tr>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.City
+                            </td>
+                            <td>
+                                @item.PhoneNumber
+                            </td>
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wanna delete?')">Delete</button>
+                                <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p>No User Found</p>
+            }
+        </div>
+    </form>
+</div>

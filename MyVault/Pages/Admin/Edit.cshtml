@@ -1,0 +1,90 @@
+﻿@page
+@model MyVault.Pages.Admin.EditModel
+
+
+<h2 class="text-info pt-2 pb-3">Edit User</h2>
+
+<div class="row border">
+    <div class="col-md-8">
+        <form method="post">
+            <input type="hidden" asp-for="VaultUser.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.Name"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.Name" value="@Model.VaultUser.Name" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.Address"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.Address" value="@Model.VaultUser.Address" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.City"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.City" value="@Model.VaultUser.City" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.PostalCode"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.PostalCode" value="@Model.VaultUser.PostalCode" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.PhoneNumber"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.PhoneNumber" value="@Model.VaultUser.PhoneNumber" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="VaultUser.Email"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="VaultUser.Email" value="@Model.VaultUser.Email" class="form-control" />
+                    </div>
+                </div>
+                <span asp-validation-for="VaultUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-4 offset-4">
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                    <div class="col-4">
+                        <a asp-page="Index" class="btn btn-primary">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
