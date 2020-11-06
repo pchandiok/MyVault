@@ -36,11 +36,18 @@ namespace MyVault.TagHelpers
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             TagBuilder result = new TagBuilder("div");
 
-            for(int i = 1; i <= PageModel.TotalItems; i++)
+            for(int i = 1; i <= PageModel.TotalPage; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
                 string url = PageModel.UrlParam.Replace(":", i.ToString());
+                tag.Attributes["href"] = url;
+                tag.AddCssClass(PageClass);
+                tag.AddCssClass(i==PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                tag.InnerHtml.Append(i.ToString());
+                result.InnerHtml.AppendHtml(tag);
             }
+
+            output.Content.AppendHtml(result.InnerHtml);
         }
 
     }

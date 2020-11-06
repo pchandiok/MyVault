@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyVault.Data;
 using MyVault.Models;
+using MyVault.Models.ViewModel;
+using MyVault.Utilities;
 
 namespace MyVault.Pages.Admin
 {
@@ -21,11 +24,34 @@ namespace MyVault.Pages.Admin
             _db = db;
         }
 
-        public IEnumerable<VaultUser> VaultUser { get; set; }
+        public UsersListViewModel UsersListVM;
 
-        public async Task OnGet()
+
+        public async Task<IActionResult> OnGet(int UserPage=1)
         {
-            VaultUser = await _db.VaultUser.ToListAsync();
+            UsersListVM = new UsersListViewModel()
+            {
+                VaultUser = await _db.VaultUser.ToListAsync()
+            };
+
+            StringBuilder param = new StringBuilder();
+            param.Append("/Admin?UserPage=:");
+
+            var count = UsersListVM.VaultUser.Count;
+
+            UsersListVM.PagingInfo = new PagingInfo()
+            {
+                CurrentPage = UserPage,
+                ItemsPerPage = SD.PaginationUsersPageSize,
+                TotalItems = count,
+                UrlParam = param.ToString()
+            };
+
+            UsersListVM.VaultUser = UsersListVM.VaultUser.OrderBy(p => p.Email)
+                .Skip((UserPage - 1) * SD.PaginationUsersPageSize)
+                .Take(SD.PaginationUsersPageSize).ToList();
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostDelete(string id)

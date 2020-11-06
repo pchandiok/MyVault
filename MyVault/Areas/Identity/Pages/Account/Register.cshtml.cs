@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MyVault.Data;
 using MyVault.Models;
+using MyVault.Utilities;
 
 namespace MyVault.Areas.Identity.Pages.Account
 {

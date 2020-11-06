@@ -13,41 +13,49 @@
         </div>
 
         <div class="col-12 border p-3 mt-3">
-            @if (Model.VaultUser.Count() > 0)
+            @if (Model.UsersListVM.VaultUser.Count() > 0)
             {
                 <table class="table table-striped border">
                     <tr class="table-secondary">
                         <th>
-                            <label asp-for="@Model.VaultUser.FirstOrDefault().Name"></label>
+                            <label asp-for="@Model.UsersListVM.VaultUser.FirstOrDefault().Name"></label>
                         </th>
                         <th>
-                            <label asp-for="@Model.VaultUser.FirstOrDefault().City"></label>
+                            <label asp-for="@Model.UsersListVM.VaultUser.FirstOrDefault().PhoneNumber"></label>
                         </th>
                         <th>
-                            <label asp-for="@Model.VaultUser.FirstOrDefault().PhoneNumber"></label>
+                            <label asp-for="@Model.UsersListVM.VaultUser.FirstOrDefault().Email"></label>
                         </th>
+                        <th></th>
                         <th></th>
                     </tr>
 
-                    @foreach (var item in Model.VaultUser)
+                    @foreach (var item in Model.UsersListVM.VaultUser)
                     {
-                        <tr>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @item.City
-                            </td>
-                            <td>
-                                @item.PhoneNumber
-                            </td>
-                            <td>
-                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wanna delete?')">Delete</button>
-                                <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Edit</a>
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.PhoneNumber
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td></td>
+                    <td>
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wanna delete?')">Delete</button>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Edit</a>
+                    </td>
+                </tr>
                     }
+                    <tr>
+                        <td colspan="5" class="text-right">
+                            <div page-model="@Model.UsersListVM.PagingInfo" asp-action="Index" page-class="btn border" page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group">
 
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             }
             else
